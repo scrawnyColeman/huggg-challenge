@@ -1,12 +1,11 @@
 import { DataOf, OpenAPIRoute, Path } from '@cloudflare/itty-router-openapi';
 import { z } from 'zod';
-import { Ctx } from '@/index';
 import { ProductService } from '@/lib/service/product-service';
 import { SomeThirdPartyApiClientImpl } from '@/lib/clients/some-third-party-api-client';
 import { StoreDto } from '@/lib/dtos/store';
 
 export class GetProductStores extends OpenAPIRoute {
-	async handle(request: Request, env: Env, context: Ctx, data: DataOf<typeof GetProductStores.schema>) {
+	async handle(request: Request, env: Env, context: { executionContext: ExecutionContext }, data: DataOf<typeof GetProductStores.schema>) {
 		const apiClient = new SomeThirdPartyApiClientImpl();
 
 		const productService = new ProductService(apiClient);

@@ -20,4 +20,4 @@ export default {
 		const response = await handleErrors(async () => await router.handle(request, env, { executionContext }));
 		return corsify(response);
 	},
-};
+} satisfies ExportedHandler<Env>;
