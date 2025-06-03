@@ -1,5 +1,6 @@
 import { ApiClient } from '@/lib/clients/api-client.interface';
 import type { ProductDto } from '@/lib/dtos/product';
+import { NotFoundError } from '../errors/not-found-error';
 
 export class BrandService {
 	private apiClient: ApiClient;
@@ -12,7 +13,7 @@ export class BrandService {
 		const data = await this.apiClient.getData();
 
 		const brand = data.data.find((brand) => brand.id === brandId);
-		if (!brand) throw new Error('Brand not found');
+		if (!brand) throw new NotFoundError('Brand not found');
 
 		const productsMap = new Map(data.embedded.products.map((product) => [product.id, product]));
 

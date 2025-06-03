@@ -1,5 +1,6 @@
 import { ApiClient } from '@/lib/clients/api-client.interface';
 import type { StoreDto } from '@/lib/dtos/store';
+import { NotFoundError } from '../errors/not-found-error';
 
 export class ProductService {
 	private apiClient: ApiClient;
@@ -12,7 +13,7 @@ export class ProductService {
 		const data = await this.apiClient.getData();
 
 		const productExists = data.embedded.products.some((product) => product.id === productId);
-		if (!productExists) throw new Error('Product not found');
+		if (!productExists) throw new NotFoundError('Product not found');
 
 		const storesMap = new Map(data.embedded.stores.map((store) => [store.id, store]));
 
