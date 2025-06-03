@@ -1,5 +1,5 @@
-import Data from './__data.json';
+import { type GetDataResponseDto } from './dtos/get-data.dto';
 
 export interface ApiClient {
-	getData: () => Promise<typeof Data>;
+	getData: () => Promise<GetDataResponseDto>;
 }

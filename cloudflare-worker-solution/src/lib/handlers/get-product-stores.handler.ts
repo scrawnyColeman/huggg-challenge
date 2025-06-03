@@ -1,12 +1,13 @@
 import { DataOf, OpenAPIRoute, Path } from '@cloudflare/itty-router-openapi';
 import { z } from 'zod';
-import { Ctx } from '../../index';
-import { ProductService } from '../service/product-service';
-import { ApiClientImpl } from '../clients/api-client.impl';
+import { Ctx } from '@/index';
+import { ProductService } from '@/lib/service/product-service';
+import { SomeThirdPartyApiClientImpl } from '@/lib/clients/some-third-party-api-client';
+import { StoreDto } from '@/lib/dtos/store';
 
 export class GetProductStores extends OpenAPIRoute {
 	async handle(request: Request, env: Env, context: Ctx, data: DataOf<typeof GetProductStores.schema>) {
-		const apiClient = new ApiClientImpl();
+		const apiClient = new SomeThirdPartyApiClientImpl();
 
 		const productService = new ProductService(apiClient);
 		const stores = await productService.getStoresByProductId(data.params.productId);
@@ -22,18 +23,11 @@ export class GetProductStores extends OpenAPIRoute {
 		responses: {
 			'200': {
 				description: 'List of stores where the product is available',
-				schema: z.array(
-					z.object({
-						storeId: z.number(),
-						storeName: z.string(),
-					})
-				),
+				schema: z.array(StoreDto),
 			},
 			'404': {
 				description: 'Product not found',
-				schema: z.object({
-					error: z.string(),
-				}),
+				schema: z.object({ error: z.string() }),
 			},
 		},
 	};
