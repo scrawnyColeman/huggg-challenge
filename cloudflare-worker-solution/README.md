@@ -101,6 +101,7 @@ brew install jq
 
 ```bash
 # Without jq installed
+# URL also can be visited in the browser
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/brands/foo-bar-not-real-uuid/products
 
 # With jq installed
@@ -121,10 +122,11 @@ Expected response:
 3 products and 1 consolidated product
 
 ```bash
-# With jq installed
+# Without jq installed
+# URL also can be visited in the browser
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/brands/a715b837-f4fc-48ba-ba0a-7f53b6dc59c5/products
 
-# Without jq installed
+# With jq installed
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/brands/a715b837-f4fc-48ba-ba0a-7f53b6dc59c5/products | jq .
 ```
 
@@ -296,10 +298,11 @@ Expected response:
 No products and 1 consolidated product
 
 ```bash
-# With jq installed
+# Without jq installed
+# URL also can be visited in the browser
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/brands/01c25854-6b19-4494-be81-777284b34d2f/products
 
-# Without jq installed
+# With jq installed
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/brands/01c25854-6b19-4494-be81-777284b34d2f/products | jq .
 ```
 
@@ -361,6 +364,7 @@ Expected response:
 
 ```bash
 # Without jq installed
+# URL also can be visited in the browser
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/products/foo-bar-not-real-uuid/stores
 
 # With jq installed
@@ -382,6 +386,7 @@ Available in 1 Brand, but that Brand is in 25 Stores
 
 ```bash
 # Without jq installed
+# URL also can be visited in the browser
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/products/29a756ae-9ddb-412f-b378-c42e1bc50831/stores
 
 # With jq installed
@@ -756,6 +761,7 @@ Total expected stores = 46
 
 ```bash
 # Without jq installed
+# URL also can be visited in the browser
 curl -X GET https://huggg-challenge-api-production.h9software.workers.dev/v1/api/products/26f7a82a-30a8-44e4-93cb-499a256d0ce9/stores
 
 # With jq installed
