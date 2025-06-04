@@ -5,7 +5,9 @@
 	"scripts": {
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
-		"dev": "wrangler dev --env development --port 8787"
+		"dev": "wrangler dev --env development --port 8787",
+		"deploy:prod": "wrangler deploy --env production",
+		"deploy:dev": "wrangler deploy --env development"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.35",

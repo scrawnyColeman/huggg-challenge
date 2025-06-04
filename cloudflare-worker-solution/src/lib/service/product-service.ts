@@ -18,12 +18,12 @@ export class ProductService {
 		const storesMap = new Map(data.embedded.stores.map((store) => [store.id, store]));
 
 		const brandsWithProduct = data.data.filter(
-			(brand) => (brand.products as string[]).includes(productId) || (brand.consolidated_products as string[]).includes(productId)
+			(brand) => brand.products.includes(productId) || brand.consolidated_products.includes(productId)
 		);
 
 		const storeIds = new Set<string>();
 		brandsWithProduct.forEach((brand) => {
-			(brand.stores as string[]).forEach((storeId) => storeIds.add(storeId));
+			brand.stores.forEach((storeId) => storeIds.add(storeId));
 		});
 
 		return Array.from(storeIds)

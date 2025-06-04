@@ -11,7 +11,7 @@ export class GetProductStores extends OpenAPIRoute {
 		const productService = new ProductService(apiClient);
 		const stores = await productService.getStoresByProductId(data.params.productId);
 
-		return new Response(JSON.stringify(stores), { status: 200 });
+		return new Response(JSON.stringify({ stores, count: stores.length }), { status: 200 });
 	}
 
 	static schema = {
@@ -22,7 +22,10 @@ export class GetProductStores extends OpenAPIRoute {
 		responses: {
 			'200': {
 				description: 'List of stores where the product is available',
-				schema: z.array(StoreDto),
+				schema: z.object({
+					stores: z.array(StoreDto),
+					count: z.number(),
+				}),
 			},
 			'404': {
 				description: 'Product not found',

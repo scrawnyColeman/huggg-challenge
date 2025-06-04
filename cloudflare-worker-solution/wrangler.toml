@@ -7,12 +7,6 @@ compatibility_flags = ["nodejs_compat"]
 [env.development.vars]
 ENVIRONMENT = "development"
 
-[env.staging]
-workers_dev = true
-[env.staging.vars]
-ENVIRONMENT = "staging"
-
 [env.production]
-workers_dev = false
 [env.production.vars]
 ENVIRONMENT = "production"

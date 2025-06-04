@@ -11,7 +11,7 @@ export class GetBrandProducts extends OpenAPIRoute {
 		const brandService = new BrandService(apiClient);
 		const products = await brandService.getProductsByBrandId(data.params.brandId);
 
-		return new Response(JSON.stringify(products), { status: 200 });
+		return new Response(JSON.stringify({ products, count: products.length }), { status: 200 });
 	}
 
 	static schema = {
@@ -22,7 +22,10 @@ export class GetBrandProducts extends OpenAPIRoute {
 		responses: {
 			'200': {
 				description: 'List of products of a brand',
-				schema: z.array(ProductDto),
+				schema: z.object({
+					products: z.array(ProductDto),
+					count: z.number(),
+				}),
 			},
 			'404': {
 				description: 'Brand not found',
