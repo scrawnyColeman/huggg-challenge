@@ -1,18 +1,30 @@
 # Huggg Challenge API
 
+## Getting started
+
+This project is a Cloudflare Worker that provides a REST API for the Huggg Challenge.
+
 ### How to run
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Start local dev server
 
 ```bash
 npm run dev
 ```
 
-### How to test
+Run test suite
 
 ```bash
 npm run test
 ```
 
-### How to deploy to Cloudflare workers
+### How to deploy to your own Cloudflare account
 
 ```bash
 # Deploy to development environment
@@ -21,6 +33,24 @@ npm run deploy:dev
 # Deploy to production environment
 npm run deploy:prod
 ```
+
+## OpenAPI Docs
+
+Available at `https://huggg-challenge-api-production.h9software.workers.dev/docs`
+
+## Mock data assumptions
+
+- I have assumed that the mocked data is intended to simulate a response from an external API (or a network call across microservices) that is not under my control and therefore I can't modify underlying database queries. Therefore, these transformations would need to be carried out on any paginated response.
+  - This assumption is based on the fact that Huggg facilitates the dropshipping of products from external vendors. Many of these products will be pulled from external APIs (similar in most point-of-sale products)
+- I can see that the data is paginated, but I have not leaned on that pagination in the challenge because when attempting to invoke the endpoints I receive a 401 Unauthorized error.
+  - My understanding is that this challenge is asking me to extract data from the payload, agnostic of pagination. However, to implement pagination I could add a nullable `nextPageUrl` to the query params of the endpoints and propagate those params into the proxy service that talks to the Huggg/external API. By returning the new `nextPageUrl` if one exists on the API payload, the frontend consuming this API would be able to paginated through responses from this API, extracting all of the resources in a performant way
+    - In this case, I might lift the `getData` up from the service layer such that data fetching is decoupled from data extraction and the service layer stays agnostic of pagination. It simply provides a pure function that takes `productId` (or `brandId`) and some brand data, and extracts the relevant information
+
+## Caching
+
+- I have not implemented any caching in this solution.
+  - Cloudflare Workers are stateless and therefore do not support in-memory caching
+  - If this were a real world application, I might implement endpoint caching using Cloudflare's KV store with a TTL dependent on how frequently the data changes and whether or not eventual consistency is acceptable. This would serve cached responses to the client for a given request for the duration of the TTL
 
 ## API Structure
 
